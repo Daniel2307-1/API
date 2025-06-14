@@ -6,15 +6,18 @@ import ast
 import re
 
 app = FastAPI()
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8100"],
+    allow_origins=[
+        "http://localhost:8100",     # para desarrollo local en Ionic
+        "https://localhost",         # si usas https en local
+        "capacitor://localhost",     # para apps móviles con Capacitor
+        "*"                          # (opcional) permite todos los orígenes
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 class CodigoRequest(BaseModel):
     codigo: str
     lenguaje: str
